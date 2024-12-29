@@ -1,64 +1,73 @@
 /**
- * Unknown 타입
+ * 기본 타입간의 호환성
+ * -> 어떤 객체타입을 다른 객체타입으로 취급해도 괜찮은가?
  */
 
-function unknownExam() {
-  let a: unknown = 1;
-  let b: unknown = "hello";
-  let c: unknown = true;
-  let d: unknown = null;
-  let e: unknown = undefined;
+type Animal = {
+  name: string;
+  color: string;
+};
 
-  let unknownVar: unknown;
+type Dog = {
+  name: string;
+  color: string;
+  breed: string;
+};
 
-  // let num: number = unknownVar;
-  // let str: number = unknownVar;
-  // let bool: number = unknownVar;
-}
+let animal: Animal = {
+  name: "기린",
+  color: "yellow",
+};
+
+let dog: Dog = {
+  name: "돌돌이",
+  color: "brown",
+  breed: "진돗개",
+};
+
+/** 업 캐스팅 */
+
+animal = dog;
+
+/** 다운 캐스팅 */
+
+// dog = animal;
+
+type Book = {
+  name: string;
+  price: number;
+};
+
+type ProgrammingBook = {
+  name: string;
+  price: number;
+  skill: string;
+};
 
 /**
- * Never 타입
+ * 업캐스팅 예시
+ * -> 자식 타입(ProgrammingBook)에서 부모 타입(Book)으로 대입 가능
+ * -> 자식 타입(ProgrammingBook)은 부모 타입(Book)의 모든 프로퍼티를 포함하고 있기 때문
+ * -> 반대인 경우 오류 발생
  */
 
-function neverExam() {
-  function neverFunc(): never {
-    while (true) {}
-  }
+let book: Book;
+let programmingBook: ProgrammingBook = {
+  name: "한 입 크리로 잘라먹는 리액트",
+  price: 33000,
+  skill: "reactjs",
+};
 
-  let num: number = neverFunc();
-  let str: string = neverFunc();
-  let bool: boolean = neverFunc();
-
-  // let never1: never = 10;
-  // let never2: never = "string";
-  // let never3: never = true;
-}
+book = programmingBook;
+// programmingBook = book;
 
 /**
- * Void 타입
+ * 초과 프로퍼티 검사
+ * -> 객체 리터럴을 통해 객체를 생성할 때 추가적인 프로퍼티가 있는지 검사
  */
 
-function voidExam() {
-  function voidFunc(): void {
-    console.log("hi");
-  }
-
-  let voidVar: void = undefined;
-}
-
-/**
- * any 타입
- */
-
-function anyExam() {
-  let unknownVar: unknown;
-  let anyVar: any;
-  let undefinedVar: undefined;
-  let neverVar: never;
-
-  anyVar = unknownVar;
-
-  undefinedVar = anyVar;
-
-  // neverVar = anyVar;
-}
+let book2: Book = {
+  name: "한 입 크리로 잘라먹는 리액트",
+  price: 33000,
+  // skill: "reactjs",
+};
