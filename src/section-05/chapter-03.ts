@@ -1,40 +1,79 @@
 /**
- * 선언 합치기
+ * 함수 타입 호환성
+ * -> 특정 함수 타입을 다른 함수 타입에 할당할 수 있는지 여부를 결정하는 것
+ * -> 1. 반환값의 타입이 호환되는지 여부
+ * -> 2. 매개변수의 타입이 호환되는지 여부
  */
 
-interface Person {
+/**
+ * 1. 반환값의 타입이 호환되는지 여부
+ */
+
+type A = () => number;
+type B = () => 10;
+
+let a: A = () => 10;
+let b: B = () => 10;
+
+a = b;
+// b = a;
+
+/**
+ * 2. 매개변수의 타입이 호환되는지 여부
+ */
+
+/**
+ * 2-1. 매개변수의 개수가 같은 경우
+ */
+
+type C = (value: number) => void;
+type D = (value: number) => void;
+
+let c: C = (value) => {};
+let d: D = (value) => {};
+
+// c = d;
+d = c;
+
+type Animal = {
   name: string;
-}
+};
 
-interface Person {
+type Dog = {
   name: string;
-  age: number;
-}
+  color: number;
+};
 
-interface Developer extends Person {
-  name: "hello";
-}
+let animalFunc = (animal: Animal) => {
+  console.log(animal.name);
+};
 
-const person: Person = {
-  name: "김사람",
-  age: 27,
+let dogFunc = (dog: Dog) => {
+  console.log(dog.name);
+  console.log(dog.color);
+};
+
+//animalFunc = dogFunc;
+dogFunc = animalFunc;
+
+let testFunc = (animal: Animal) => {
+  console.log(animal.name);
+  // console.log(animal.color);
+};
+
+let testFunc2 = (dog: Dog) => {
+  console.log(dog.name);
 };
 
 /**
- * 모듈 보강
+ * 2-2. 매개변수의 개수가 다른 경우
  */
 
-interface Lib {
-  a: number;
-  b: number;
-}
+type Func1 = (a: number, b: number) => void;
+type Func2 = (a: number) => void;
 
-interface Lib {
-  c: string;
-}
+let func1: Func1 = (a, b) => {};
+let func2: Func2 = (a) => {};
 
-const lib: Lib = {
-  a: 1,
-  b: 2,
-  c: "hello",
-};
+func1 = func2;
+// func2 = func1;

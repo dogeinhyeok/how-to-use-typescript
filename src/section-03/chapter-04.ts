@@ -1,50 +1,64 @@
 /**
- * 대수 타입
- * -> 두 개 이상의 타입을 합친 타입
- * -> 합집합 타입과 교집합 타입이 존재합니다
+ * 타입 별칭
  */
 
-type Dog = {
+type User = {
+  id: number;
   name: string;
-  color: string;
+  nickname: string;
+  birth: string;
+  bio: string;
+  location: string;
 };
 
-type Person = {
+function func() {
+  type User = {};
+}
+
+let user: User = {
+  id: 1,
+  name: "이정환",
+  nickname: "winterlood",
+  birth: "1997.01.07",
+  bio: "안녕하세요",
+  location: "부천시",
+};
+
+let user2: {
+  id: number;
   name: string;
-  language: string;
+  nickname: string;
+  birth: string;
+  bio: string;
+  location: string;
+} = {
+  id: 1,
+  name: "이정환",
+  nickname: "winterlood",
+  birth: "1997.01.07",
+  bio: "안녕하세요",
+  location: "부천시",
 };
 
 /**
- * 1. 합집합 - Union 타입
+ * 인덱스 시그니처
  */
+type CountryCodes = {
+  [key: string]: string;
+};
 
-let a: string | number | boolean;
-a = 1;
-a = "hello";
-a = true;
+let countryCodes: CountryCodes = {
+  Korea: "ko",
+  UnitedState: "us",
+  UnitedKingdom: "uk",
+};
 
-let arr: (string | number | boolean)[] = [1, "hello", true];
+type CountryNumberCodes = {
+  [key: string]: number;
+  Korea: number;
+};
 
-type Union1 = Dog | Person;
-
-let union1: Union1 = { name: "dog", color: "black" };
-
-let union2: Union1 = { name: "person", language: "korean" };
-
-let union3: Union1 = { name: "dog", color: "black", language: "korean" };
-
-// let union4: Union1 = { name: "dog" };
-
-/**
- * 2. 교집합 - Intersection 타입
- */
-
-let variable: number & string;
-
-type Intersection = Dog & Person;
-
-let intersection: Intersection = {
-  name: "dog",
-  color: "black",
-  language: "korean",
+let countryNumberCodes: CountryNumberCodes = {
+  Korea: 410,
+  UnitedKingdom: 826,
 };

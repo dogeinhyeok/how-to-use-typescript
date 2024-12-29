@@ -1,21 +1,31 @@
 /**
- * 타입 좁히기
- * -> 조건문 등을 이용해 더 구체적인 타입으로 좁히는 것
+ * void 타입
+ * -> 함수에서 아무것도 반환하지 않을 때 사용
+ * -> 함수에서 반환 타입을 void로 선언하면 함수는 반환 값을 반환하지 않음
  */
 
-type Person = {
-  name: string;
-  age: number;
-};
-
-function func(value: number | string | Date | null | Person) {
-  if (typeof value === "number") {
-    console.log(value.toFixed());
-  } else if (typeof value === "string") {
-    console.log(value.toUpperCase());
-  } else if (value instanceof Date) {
-    console.log(value.getTime());
-  } else if (value && "age" in value) {
-    console.log(value.age);
-  }
+function func1(): string {
+  return "hello";
 }
+
+function func2(): void {
+  console.log("hello");
+}
+
+/**
+ * never 타입
+ * -> 존재하지 않는
+ * -> 불가능한 타입
+ */
+
+function func3(): never {
+  while (true) {}
+}
+
+function func4(): never {
+  throw new Error();
+}
+
+let anyVar: any;
+
+let a: never;

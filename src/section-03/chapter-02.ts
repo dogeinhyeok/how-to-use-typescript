@@ -1,64 +1,34 @@
 /**
- * Unknown 타입
+ * 배열
+ * -> 같은 타입의 값들을 순차적으로 나열한 타입
  */
+let numArr: number[] = [1, 2, 3];
 
-function unknownExam() {
-  let a: unknown = 1;
-  let b: unknown = "hello";
-  let c: unknown = true;
-  let d: unknown = null;
-  let e: unknown = undefined;
+let strArr: string[] = ["hello", "im", "winterlood"];
 
-  let unknownVar: unknown;
+let boolArr: Array<boolean> = [true, false, true];
 
-  // let num: number = unknownVar;
-  // let str: number = unknownVar;
-  // let bool: number = unknownVar;
-}
+/** 배열에 들어가는 요소들의 타입이 다양할 경우 */
+let multiArr: (number | string)[] = [1, "hello"];
+
+/** 다차원 배열의 타입을 정의하는 방법 */
+let doubleArr: number[][] = [
+  [1, 2, 3],
+  [4, 5],
+];
 
 /**
- * Never 타입
+ * 튜플
+ * -> 배열의 요소들의 타입과 개수가 고정된 배열
  */
+let tup1: [number, number] = [1, 2];
 
-function neverExam() {
-  function neverFunc(): never {
-    while (true) {}
-  }
+let tup2: [number, string, boolean] = [1, "2", true];
 
-  let num: number = neverFunc();
-  let str: string = neverFunc();
-  let bool: boolean = neverFunc();
-
-  // let never1: never = 10;
-  // let never2: never = "string";
-  // let never3: never = true;
-}
-
-/**
- * Void 타입
- */
-
-function voidExam() {
-  function voidFunc(): void {
-    console.log("hi");
-  }
-
-  let voidVar: void = undefined;
-}
-
-/**
- * any 타입
- */
-
-function anyExam() {
-  let unknownVar: unknown;
-  let anyVar: any;
-  let undefinedVar: undefined;
-  let neverVar: never;
-
-  anyVar = unknownVar;
-
-  undefinedVar = anyVar;
-
-  // neverVar = anyVar;
-}
+const users: [string, number][] = [
+  ["이정환", 1],
+  ["이아무개", 2],
+  ["김아무개", 3],
+  [`박아무개`, 4],
+  // [5, "최아무개"],
+];

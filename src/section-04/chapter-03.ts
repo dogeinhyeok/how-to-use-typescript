@@ -1,35 +1,73 @@
 /**
- * 함수 오버로딩
- * -> 하나의 함수를 매개변수의 개수나 타입에 따라
- * -> 여러가지 버전으로 만드는 문법
+ * 기본 타입간의 호환성
+ * -> 어떤 객체타입을 다른 객체타입으로 취급해도 괜찮은가?
  */
+
+type Animal = {
+  name: string;
+  color: string;
+};
+
+type Dog = {
+  name: string;
+  color: string;
+  breed: string;
+};
+
+let animal: Animal = {
+  name: "기린",
+  color: "yellow",
+};
+
+let dog: Dog = {
+  name: "돌돌이",
+  color: "brown",
+  breed: "진돗개",
+};
+
+/** 업 캐스팅 */
+
+animal = dog;
+
+/** 다운 캐스팅 */
+
+// dog = animal;
+
+type Book = {
+  name: string;
+  price: number;
+};
+
+type ProgrammingBook = {
+  name: string;
+  price: number;
+  skill: string;
+};
 
 /**
- * 오버로드 시그니쳐
- * -> 함수 오버로딩을 위한 타입 선언
+ * 업캐스팅 예시
+ * -> 자식 타입(ProgrammingBook)에서 부모 타입(Book)으로 대입 가능
+ * -> 자식 타입(ProgrammingBook)은 부모 타입(Book)의 모든 프로퍼티를 포함하고 있기 때문
+ * -> 반대인 경우 오류 발생
  */
 
-function func(a: number): void;
-function func(a: number, b: number, c: number): void;
+let book: Book;
+let programmingBook: ProgrammingBook = {
+  name: "한 입 크리로 잘라먹는 리액트",
+  price: 33000,
+  skill: "reactjs",
+};
+
+book = programmingBook;
+// programmingBook = book;
 
 /**
- * 구현 시그니쳐
- * -> 실제 구현된 함수
+ * 초과 프로퍼티 검사
+ * -> 객체 리터럴을 통해 객체를 생성할 때 추가적인 프로퍼티가 있는지 검사
  */
 
-function func(a: number, b?: number, c?: number) {
-  if (typeof b === "number" && typeof c === "number") {
-    console.log(a + b + c);
-  } else {
-    console.log(a * 20);
-  }
-}
-
-func(1);
-// func(1, 2); // 오버로드 시그니쳐에 맞지 않음
-func(1, 2, 3);
-// func(1, 2, 3, 4); // 오버로드 시그니쳐에 맞지 않음
-
-/**
- * 매개변수가 3개인 경우
- */
+let book2: Book = {
+  name: "한 입 크리로 잘라먹는 리액트",
+  price: 33000,
+  // skill: "reactjs",
+};

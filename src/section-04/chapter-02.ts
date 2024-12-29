@@ -1,79 +1,64 @@
 /**
- * 함수 타입 호환성
- * -> 특정 함수 타입을 다른 함수 타입에 할당할 수 있는지 여부를 결정하는 것
- * -> 1. 반환값의 타입이 호환되는지 여부
- * -> 2. 매개변수의 타입이 호환되는지 여부
+ * Unknown 타입
  */
+
+function unknownExam() {
+  let a: unknown = 1;
+  let b: unknown = "hello";
+  let c: unknown = true;
+  let d: unknown = null;
+  let e: unknown = undefined;
+
+  let unknownVar: unknown;
+
+  // let num: number = unknownVar;
+  // let str: number = unknownVar;
+  // let bool: number = unknownVar;
+}
 
 /**
- * 1. 반환값의 타입이 호환되는지 여부
+ * Never 타입
  */
 
-type A = () => number;
-type B = () => 10;
+function neverExam() {
+  function neverFunc(): never {
+    while (true) {}
+  }
 
-let a: A = () => 10;
-let b: B = () => 10;
+  let num: number = neverFunc();
+  let str: string = neverFunc();
+  let bool: boolean = neverFunc();
 
-a = b;
-// b = a;
+  // let never1: never = 10;
+  // let never2: never = "string";
+  // let never3: never = true;
+}
 
 /**
- * 2. 매개변수의 타입이 호환되는지 여부
+ * Void 타입
  */
+
+function voidExam() {
+  function voidFunc(): void {
+    console.log("hi");
+  }
+
+  let voidVar: void = undefined;
+}
 
 /**
- * 2-1. 매개변수의 개수가 같은 경우
+ * any 타입
  */
 
-type C = (value: number) => void;
-type D = (value: number) => void;
+function anyExam() {
+  let unknownVar: unknown;
+  let anyVar: any;
+  let undefinedVar: undefined;
+  let neverVar: never;
 
-let c: C = (value) => {};
-let d: D = (value) => {};
+  anyVar = unknownVar;
 
-// c = d;
-d = c;
+  undefinedVar = anyVar;
 
-type Animal = {
-  name: string;
-};
-
-type Dog = {
-  name: string;
-  color: number;
-};
-
-let animalFunc = (animal: Animal) => {
-  console.log(animal.name);
-};
-
-let dogFunc = (dog: Dog) => {
-  console.log(dog.name);
-  console.log(dog.color);
-};
-
-//animalFunc = dogFunc;
-dogFunc = animalFunc;
-
-let testFunc = (animal: Animal) => {
-  console.log(animal.name);
-  // console.log(animal.color);
-};
-
-let testFunc2 = (dog: Dog) => {
-  console.log(dog.name);
-};
-
-/**
- * 2-2. 매개변수의 개수가 다른 경우
- */
-
-type Func1 = (a: number, b: number) => void;
-type Func2 = (a: number) => void;
-
-let func1: Func1 = (a, b) => {};
-let func2: Func2 = (a) => {};
-
-func1 = func2;
-// func2 = func1;
+  // neverVar = anyVar;
+}

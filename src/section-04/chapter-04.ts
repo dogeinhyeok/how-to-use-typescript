@@ -1,60 +1,50 @@
 /**
- * 사용자 정의 타입 가드
- * -> 참 또는 거짓을 반환하는 함수를 이용해 타입을 구분하는 방식
- * -> 'is' 연산자를 사용하여 커스텀 타입 가드를 만들 수 있음
+ * 대수 타입
+ * -> 두 개 이상의 타입을 합친 타입
+ * -> 합집합 타입과 교집합 타입이 존재합니다
  */
 
 type Dog = {
   name: string;
-  isBark: boolean;
+  color: string;
 };
 
-type Cat = {
+type Person = {
   name: string;
-  isScratch: boolean;
+  language: string;
 };
 
 /**
- * Animal 타입 정의
- * -> Dog와 Cat 타입의 유니온 타입
+ * 1. 합집합 - Union 타입
  */
 
-type Animal = Dog | Cat;
+let a: string | number | boolean;
+a = 1;
+a = "hello";
+a = true;
+
+let arr: (string | number | boolean)[] = [1, "hello", true];
+
+type Union1 = Dog | Person;
+
+let union1: Union1 = { name: "dog", color: "black" };
+
+let union2: Union1 = { name: "person", language: "korean" };
+
+let union3: Union1 = { name: "dog", color: "black", language: "korean" };
+
+// let union4: Union1 = { name: "dog" };
 
 /**
- * isDog 타입 가드 함수
- * -> animal이 Dog 타입인지 확인
- * -> 'animal is Dog'는 이 함수가 true를 반환하면
- * -> 매개변수 animal이 Dog 타입임을 보장
+ * 2. 교집합 - Intersection 타입
  */
 
-function isDog(animal: Animal): animal is Dog {
-  return (animal as Dog).isBark !== undefined;
-}
+let variable: number & string;
 
-/**
- * isCat 타입 가드 함수
- * -> animal이 Cat 타입인지 확인
- * -> 'animal is Cat'는 이 함수가 true를 반환하면
- * -> 매개변수 animal이 Cat 타입임을 보장
- */
+type Intersection = Dog & Person;
 
-function isCat(animal: Animal): animal is Cat {
-  return (animal as Cat).isScratch !== undefined;
-}
-
-/**
- * warning 함수
- * -> 동물의 타입에 따라 다른 처리를 하는 함수
- * -> isDog 타입 가드를 사용하여 강아지 여부 확인
- * -> in 연산자를 사용하여 고양이 여부 확인
- */
-
-function warning(animal: Animal) {
-  if (isDog(animal)) {
-    // 강아지로 타입 좁히기 성공
-    animal;
-  } else if ("isScratch" in animal) {
-    // 고양이로 타입 좁히기 성공
-  }
-}
+let intersection: Intersection = {
+  name: "dog",
+  color: "black",
+  language: "korean",
+};

@@ -1,38 +1,33 @@
 /**
- * 타입 추론
+ * enum 타입
+ * -> 여러가지 값들에 각각 이름을 부여해 열거해두고 사용하는 타입
  */
 
-let a = 10;
-let b = "hello";
-let c = {
-  id: 1,
-  name: "이정환",
-  profile: {
-    nickname: "winterlood",
-  },
-  urls: ["https://winterlood.com"],
-};
-
-let { id, name, profile } = c;
-
-let [one, two, three] = [1, "hello", true];
-
-function func(message: "hello") {
-  return "hello";
+enum Role {
+  ADMIN,
+  USER,
+  GUEST,
 }
 
-/**
- * 암묵적 타입 추론
- */
-let d;
-d = 10;
-d.toFixed();
+enum Language {
+  korean = "ko",
+  english = "en",
+}
 
-d = "hello";
-d.toUpperCase();
-// d.toFixed();
+const user1 = {
+  name: "이정환",
+  role: Role.ADMIN, // 0 <- 관리자
+  language: Language.korean,
+};
 
-const num = 10;
-const str = "hello";
+const user2 = {
+  name: "홍길동",
+  role: Role.USER, // 1 <- 일반 유저
+};
 
-let arr = [1, "string"];
+const user3 = {
+  name: "아무개",
+  role: Role.GUEST, // 2 <- 게스트
+};
+
+console.log(user1, user2, user3);

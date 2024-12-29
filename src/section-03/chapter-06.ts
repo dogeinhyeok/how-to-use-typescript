@@ -1,64 +1,43 @@
 /**
- * 타입 단언
+ * any 타입
+ * -> 모든 타입의 값을 허용하는 타입
+ * -> 타입 검사를 비활성화하고 모든 동작을 허용
+ * -> 타입 안정성을 해치므로 최대한 사용을 피해야 함
+ * -> 기존 자바스크립트 코드와의 호환을 위해 제공
  */
 
-type Person = {
-  name: string;
-  age: number;
-};
+let anyVar: any = 10;
+anyVar = "hello"; // 문자열 할당 가능
+anyVar = true; // 불리언 할당 가능
+anyVar = {}; // 객체 할당 가능
+anyVar = () => {}; // 함수 할당 가능
 
-let person = {} as Person;
-person.name = "이정환";
-person.age = 27;
+// 타입 검사를 하지 않아 런타임 에러 발생 가능
+// anyVar.toUpperCase(); // 런타임 에러
+// anyVar.toFixed(); // 런타임 에러
 
-type Dog = {
-  name: string;
-  color: string;
-};
+let num: number = 10;
+num = anyVar; // any 타입은 어디든 할당 가능
 
-let dog = {
-  name: "돌돌이",
-  color: "brown",
-  breed: "진도",
-} as Dog;
+console.log(num); // 출력: [Function: anyVar]
 
 /**
- * 타입 단언의 규칙
- * -> 값 as 단언
- * -> A as B
- * -> A가 B의 슈퍼타입이거나
- * -> A가 B의 서브타입이어야 함
+ * unknown 타입
+ * -> any 타입보다 안전한 타입
+ * -> 모든 타입의 값을 할당받을 수 있음
+ * -> 타입 검사를 강제하여 타입 안정성 제공
+ * -> 값을 사용하기 전에 타입 검사 필요
  */
+let unknownVar: unknown;
 
-let num1 = 10 as never;
-let num2 = 10 as unknown;
-let num3 = 10 as unknown as string;
+unknownVar = ""; // 문자열 할당 가능
+unknownVar = 1; // 숫자 할당 가능
+unknownVar = () => {}; // 함수 할당 가능
 
-/**
- * const 단언
- */
-
-let num4 = 10 as const;
-
-let cat = {
-  name: "야옹이",
-  color: "yellow",
-} as const;
-
-// cat.name = ''
-
-/**
- * Non Null 단언
- */
-
-type Post = {
-  title: string;
-  author: string;
-};
-
-let post: Post = {
-  title: "게시글1",
-  author: "이정환",
-};
-
-const len: number = post.author!.length;
+// unknown 타입은 타입 검사 후에만 사용 가능
+if (typeof unknownVar === "number") {
+  num = unknownVar;
+  console.log(num);
+} else {
+  console.log("not number");
+}
